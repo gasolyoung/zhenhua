@@ -1,0 +1,59 @@
+<launch>
+
+<!-- ray_ground_filter -->
+  <arg name="clipping_height" default="2.0" />       <!-- 移除更高的点云 -->
+  <arg name="min_height_threshold" default="0.05" />  <!-- 点与点之间的最小高度差 (default 0.05 meters)-->
+  <arg name="local_max_slope" default="2" />          <!-- Max Slope of the ground between Points (default 8 degrees) -->
+  <arg name="general_max_slope" default="1" />        <!-- Max Slope of the ground in the entire PointCloud, used when reclassification occurs (default 5 degrees)-->
+  
+
+<!-- lidar_euclidean_cluster_detect -->
+  <arg name="clip_min_height" default="-1.4" />
+  <arg name="clip_max_height" default="10.0" />
+  <arg name="downsample_cloud" default="false" /> <!-- Apply VoxelGrid Filter with the value given by "leaf_size"-->
+  <arg name="leaf_size" default="0.1" />
+  <arg name="keep_lanes" default="flase" />
+  <arg name="keep_lane_left_distance" default="50" />
+  <arg name="keep_lane_right_distance" default="50" />
+ 
+
+  <!-- <node pkg="tf2_ros"  type="static_transform_publisher" name="baselink_to_laser" 
+    args="0.0 0.0 0 0 0 0 1 /base_link /laser_data_frame" />
+  <node pkg="tf2_ros"  type="static_transform_publisher" name="baselink_to_ground" 
+      args="0.0 0.0 -1.55 0 0 0 1 /base_link /base_ground" /> -->
+  <node pkg="tf2_ros"  type="static_transform_publisher" name="baselink_to_ground" 
+    args="0.0 0.0 0.0 0 0 0 1 /perception/log/base_link /base_ground" />
+
+
+  <include file="$(find points_preprocessor)/launch/ray_ground_filter.launch" >
+    <arg name="local_max_slope" value="$(arg local_max_slope)" />
+    <arg name="general_max_slope" value="$(arg general_max_slope)" />
+    <arg name="min_height_threshold" value="$(arg min_height_threshold)" />
+
+    <arg name="clipping_height" value="$(arg clipping_height)" />  
+    <arg name="base_frame" value="perception/log/base_link" />
+  </include>
+
+  <!-- lidar_euclidean_cluster_detect -->
+  <include file="$(find lidar_euclidean_cluster_detect)/launch/lidar_euclidean_cluster_detect.launch">
+    <arg name="clip_min_height" value="$(arg clip_min_height)" />
+    <arg name="clip_max_height" value="$(arg clip_max_height)" />
+    <arg name="keep_lanes" value="$(arg keep_lanes)" />
+    <arg name="keep_lane_left_distance" value="$(arg keep_lane_left_distance)" />
+    <arg name="keep_lane_right_distance" value="$(arg keep_lane_right_distance)" />
+
+    <arg name="cluster_size_min" default="20" />
+    <arg name="cluster_size_max" default="100000" />
+    <arg name="downsample_cloud" value="$(arg downsample_cloud)" />
+    <arg name="leaf_size" value="$(arg leaf_size)" />
+    <arg name="points_node" default="/points_no_ground" />
+    <arg name="use_vector_map" default="false" />
+    <arg name="output_frame" default="/perception/log/base_link" />
+    <arg name="use_gpu" value="true" />
+  </include>
+  <!-- <include file="$(find lidar_point_pillars)/launch/lidar_point_pillars.launch">
+  </include> -->
+
+</launch>
+
+   

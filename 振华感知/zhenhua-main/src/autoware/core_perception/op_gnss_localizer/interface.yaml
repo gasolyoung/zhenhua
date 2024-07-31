@@ -1,0 +1,3 @@
+- name: /fix2tfpose
+  publish: [/gnss_pose, /gnss_stat]
+  subscribe: [/fix]

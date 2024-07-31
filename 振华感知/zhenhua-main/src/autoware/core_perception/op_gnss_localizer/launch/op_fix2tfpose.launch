@@ -1,0 +1,16 @@
+<!-- -->
+<launch>
+
+  <arg name="plane" default="0"/>
+  <arg name="mapSource" default="-1" /> <!-- Autoware=0, Vector Map Folder=1, kml=2, lanelet2 file=3, kml map file path from runtime manager = 4 -->
+	<arg name="mapFileName" default="" />
+	<arg name="lanelet2_origin"	default="0,0,0," /> <!-- GPS origin for lanelet2 map files, Lat, Long, Alt  -->
+
+  <node pkg="op_gnss_localizer" type="op_fix2tfpose" name="op_fix2tfpose" output="screen">
+    <param name="plane" value="$(arg plane)"/>
+    <param name="mapSource" value="$(arg mapSource)" /> <!-- Autoware=0, Vector Map Folder=1, kml=2 -->
+		<param name="mapFileName" value="$(arg mapFileName)" />
+		<param name="lanelet2_origin" value="$(arg lanelet2_origin)" />
+  </node>
+
+</launch>

@@ -1,0 +1,10 @@
+digraph G {
+"perception/log/base_link" -> "base_ground"[label="Broadcaster: /baselink_to_ground\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1721311952.433 sec old)\nBuffer length: 0.000 sec\n"];
+"perception/log/map" -> "perception/log/base_link"[label="Broadcaster: /play_1721311681712555298\nAverage rate: 16.333 Hz\nMost recent transform: 1692327065.762 ( 28984886.671 sec old)\nBuffer length: 3.000 sec\n"];
+"perception/log/base_link" -> "perception/log/velodyne_first"[label="Broadcaster: /play_1721311681712555298\nAverage rate: 16.337 Hz\nMost recent transform: 1692327065.662 ( 28984886.771 sec old)\nBuffer length: 2.999 sec\n"];
+"perception/log/base_link" -> "perception/log/velodyne_second"[label="Broadcaster: /play_1721311681712555298\nAverage rate: 16.337 Hz\nMost recent transform: 1692327065.662 ( 28984886.771 sec old)\nBuffer length: 2.999 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1721311952.433"[ shape=plaintext ] ;
+ }->"perception/log/map";
+}

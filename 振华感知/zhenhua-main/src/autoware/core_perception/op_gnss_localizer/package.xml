@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>op_gnss_localizer</name>
+  <version>1.13.0</version>
+  <description>The openplanner gnss_localizer package</description>
+  <maintainer email="hatem.darweesh@gmail.com">Hatem Darweesh</maintainer>
+  <license>Apache 2</license>
+
+  <buildtool_depend>autoware_build_flags</buildtool_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>geometry_msgs</depend>
+  <depend>gnss</depend>
+  <depend>nmea_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>autoware_msgs</depend>
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>tf</depend>
+  <depend>op_planner</depend>
+
+  <test_depend>rosunit</test_depend>
+  <test_depend>rostest</test_depend>
+</package>
